@@ -11,21 +11,20 @@ import mp1401.examples.misterx.model.gameitems.MisterX;
 import mp1401.examples.misterx.model.gameitems.enums.ConnectionType;
 import mp1401.examples.misterx.model.gameitems.enums.DetectiveType;
 
-
 public interface GameItemFactory {
-	
-	public Map createMap();
-	
-	public City createCity(String name, Point position);
-	
-	public City createUnknownCity();
 
-	public Connection createConnection(City cityA, City cityB, ConnectionType type);
+  Map createMap();
 
-	public MisterX createMisterX();
+  City createCity(String name, Point position);
 
-	public Detective createDetective(DetectiveType type);
-	
-	public Character createUnknownCharacter();
+  City createUnknownCity();
+
+  Connection createConnection(City cityA, City cityB, ConnectionType type);
+
+  MisterX createMisterX();
+
+  Detective createDetective(DetectiveType type);
+
+  Character createUnknownCharacter();
 
 }
