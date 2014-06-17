@@ -7,7 +7,6 @@ import java.util.Iterator;
 import mp1401.examples.misterx.demo.util.DemoMapDataParser;
 import mp1401.examples.misterx.model.factory.GameItemFactory;
 import mp1401.examples.misterx.model.factory.GameItemFactoryImpl;
-import mp1401.examples.misterx.model.game.states.DetectivesMovementGameState;
 import mp1401.examples.misterx.model.game.states.MisterXMovementGameState;
 import mp1401.examples.misterx.model.game.states.SetStartPositionsGameState;
 import mp1401.examples.misterx.model.game.states.StartGameState;
@@ -16,7 +15,6 @@ import mp1401.examples.misterx.model.gameitems.Detective;
 import mp1401.examples.misterx.model.gameitems.MisterX;
 import mp1401.examples.misterx.model.gameitems.enums.DetectiveType;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
