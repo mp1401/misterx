@@ -1,16 +1,11 @@
 package mp1401.examples.misterx.model.game;
 
 import static org.fest.assertions.Assertions.assertThat;
-
-import java.util.Iterator;
-
 import mp1401.examples.misterx.demo.util.DemoMapDataParser;
 import mp1401.examples.misterx.model.factory.GameItemFactory;
 import mp1401.examples.misterx.model.factory.GameItemFactoryImpl;
-import mp1401.examples.misterx.model.game.states.MisterXMovementGameState;
 import mp1401.examples.misterx.model.game.states.SetStartPositionsGameState;
 import mp1401.examples.misterx.model.game.states.StartGameState;
-import mp1401.examples.misterx.model.gameitems.City;
 import mp1401.examples.misterx.model.gameitems.Detective;
 import mp1401.examples.misterx.model.gameitems.MisterX;
 import mp1401.examples.misterx.model.gameitems.enums.DetectiveType;
@@ -47,23 +42,5 @@ public class GameImplTest {
   public void testStartGame() {
     game.startGame();
     assertThat(game.getCurrentGameState().getClass()).isEqualTo(SetStartPositionsGameState.class);
-  }
-
-  @Test
-  public void testSetPositions() {
-    game.init();
-    game.startGame();
-    final Iterator<City> citiesIt = game.getMap().getCities().iterator();
-    game.setStartPosition(MISTER_X, citiesIt.next());
-    game.setStartPosition(DETECTIVE_BLUE, citiesIt.next());
-    game.setStartPosition(DETECTIVE_GREEN, citiesIt.next());
-    assertThat(game.getCurrentGameState().getClass()).isEqualTo(MisterXMovementGameState.class);
-  }
-
-  @Test
-  public void testGetRound() {
-    game.init();
-    game.startGame();
-    assertThat(game.getRound()).isEqualTo(1);
   }
 }
