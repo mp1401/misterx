@@ -22,194 +22,193 @@ import mp1401.examples.misterx.model.gameitems.impl.collections.GameItemListImpl
 import mp1401.examples.misterx.model.mapparser.MapDataParser;
 import mp1401.examples.misterx.model.observers.GameStateChangeObserver;
 
-
 public class GameImpl implements Game {
 
-	private static Game instance;
+  private static Game instance;
 
-	private final List<GameStateChangeObserver> observers;
-	private GameState currentGameState;
-	private Map map;
-	private MisterX misterX;
-	private GameItemList<Detective> detectives;
-	private PositionChecker positionChecker;
-	private int round;
-	private Character winner;
+  private final List<GameStateChangeObserver> observers;
+  private GameState currentGameState;
+  private Map map;
+  private MisterX misterX;
+  private GameItemList<Detective> detectives;
+  private PositionChecker positionChecker;
+  private int round;
+  private Character winner;
 
-	private GameImpl() {
-		observers = new ArrayList<GameStateChangeObserver>();
-		initHelpers();
-		initGameState();
-		setDefaultValues();
+  private GameImpl() {
+    observers = new ArrayList<GameStateChangeObserver>();
+    initHelpers();
+    initGameState();
+    setDefaultValues();
 
-	}
+  }
 
-	private void initHelpers() {
-		this.positionChecker = new PositionChecker();
-	}
+  private void initHelpers() {
+    this.positionChecker = new PositionChecker();
+  }
 
-	private void initGameState() {
-		this.currentGameState = new DefaultGameState();
-	}
+  private void initGameState() {
+    this.currentGameState = new DefaultGameState();
+  }
 
-	private void setDefaultValues() {
-		GameItemFactory factory = GameItemFactoryImpl.getInstance();
-		this.map = factory.createMap();
-		this.misterX = factory.createMisterX();
-		this.detectives = new GameItemListImpl<Detective>();
-		this.winner = factory.createUnknownCharacter();
-		round = 0;
-	}
+  private void setDefaultValues() {
+    final GameItemFactory factory = GameItemFactoryImpl.getInstance();
+    this.map = factory.createMap();
+    this.misterX = factory.createMisterX();
+    this.detectives = new GameItemListImpl<Detective>();
+    this.winner = factory.createUnknownCharacter();
+    round = 0;
+  }
 
-	public static Game getInstance() {
-		if (instance == null) {
-			instance = new GameImpl();
-		}
-		return instance;
-	}
+  public static Game getInstance() {
+    if (instance == null) {
+      instance = new GameImpl();
+    }
+    return instance;
+  }
 
-	@Override
-	public void init() {
-		this.currentGameState = new StartGameState(this);
-	}
+  @Override
+  public void init() {
+    this.currentGameState = new StartGameState(this);
+  }
 
-	@Override
-	public boolean isReady() {
-		return detectives.size() > 0 && map.isFilled();
-	}
+  @Override
+  public boolean isReady() {
+    return detectives.size() > 0 && map.isFilled();
+  }
 
-	@Override
-	public boolean isFinished() {
-		return getCurrentGameState() instanceof FinishedGameState;
-	}
+  @Override
+  public boolean isFinished() {
+    return getCurrentGameState() instanceof FinishedGameState;
+  }
 
-	@Override
-	public PositionChecker getPositionChecker() {
-		return positionChecker;
-	}
+  @Override
+  public PositionChecker getPositionChecker() {
+    return positionChecker;
+  }
 
-	@Override
-	public int getRound() {
-		return round;
-	}
+  @Override
+  public int getRound() {
+    return round;
+  }
 
-	@Override
-	public void increaseRound() {
-		round = round + 1;
-	}
+  @Override
+  public void increaseRound() {
+    round = round + 1;
+  }
 
-	@Override
-	public GameState getCurrentGameState() {
-		return currentGameState;
-	}
+  @Override
+  public GameState getCurrentGameState() {
+    return currentGameState;
+  }
 
-	@Override
-	public void setCurrentGameState(GameState currentGameState) {
-		this.currentGameState = currentGameState;
-		notifyGameStateChangeObservers();
-	}
+  @Override
+  public void setCurrentGameState(final GameState currentGameState) {
+    this.currentGameState = currentGameState;
+    notifyGameStateChangeObservers();
+  }
 
-	@Override
-	public void fillMap(MapDataParser mapDataParser) {
-		getCurrentGameState().fillMap(mapDataParser);
-	}
+  @Override
+  public void fillMap(final MapDataParser mapDataParser) {
+    getCurrentGameState().fillMap(mapDataParser);
+  }
 
-	@Override
-	public void addMisterX(MisterX misterX) {
-		getCurrentGameState().addMisterX(misterX);
-	}
+  @Override
+  public void addMisterX(final MisterX misterX) {
+    getCurrentGameState().addMisterX(misterX);
+  }
 
-	@Override
-	public void addDetective(Detective detective) {
-		getCurrentGameState().addDetective(detective);
-	}
+  @Override
+  public void addDetective(final Detective detective) {
+    getCurrentGameState().addDetective(detective);
+  }
 
-	@Override
-	public void startGame() {
-		getCurrentGameState().startGame();
-	}
+  @Override
+  public void startGame() {
+    getCurrentGameState().startGame();
+  }
 
-	@Override
-	public void setStartPosition(Character character, City startPosition) {
-		getCurrentGameState().setStartPosition(character, startPosition);
-	}
+  @Override
+  public void setStartPosition(final Character character, final City startPosition) {
+    getCurrentGameState().setStartPosition(character, startPosition);
+  }
 
-	@Override
-	public void moveMisterXTo(City destinationCity) {
-		getCurrentGameState().moveMisterXTo(destinationCity);
-	}
+  @Override
+  public void moveMisterXTo(final City destinationCity) {
+    getCurrentGameState().moveMisterXTo(destinationCity);
+  }
 
-	@Override
-	public void moveDetectiveTo(Detective detective, City destinationCity) {
-		getCurrentGameState().moveDetectiveTo(detective, destinationCity);
-	}
+  @Override
+  public void moveDetectiveTo(final Detective detective, final City destinationCity) {
+    getCurrentGameState().moveDetectiveTo(detective, destinationCity);
+  }
 
-	@Override
-	public void checkSituation() {
-		getCurrentGameState().checkSituation();
-	}
+  @Override
+  public void checkSituation() {
+    getCurrentGameState().checkSituation();
+  }
 
-	@Override
-	public MisterX getMisterX() {
-		return misterX;
-	}
+  @Override
+  public MisterX getMisterX() {
+    return misterX;
+  }
 
-	@Override
-	public void setMisterX(MisterX misterX) {
-		this.misterX = misterX;
-	}
+  @Override
+  public void setMisterX(final MisterX misterX) {
+    this.misterX = misterX;
+  }
 
-	@Override
-	public GameItemList<Detective> getDetectives() {
-		return detectives;
-	}
+  @Override
+  public GameItemList<Detective> getDetectives() {
+    return detectives;
+  }
 
-	@Override
-	public Detective getDetective(DetectiveType type) {
-		for (Detective detective : detectives) {
-			if (detective.getType().equals(type)) {
-				return detective;
-			}
-		}
-		return GameItemFactoryImpl.getInstance().createDetective(DetectiveType.DEFAULT);
-	}
+  @Override
+  public Detective getDetective(final DetectiveType type) {
+    for (final Detective detective : detectives) {
+      if (detective.getType().equals(type)) {
+        return detective;
+      }
+    }
+    return GameItemFactoryImpl.getInstance().createDetective(DetectiveType.DEFAULT);
+  }
 
-	@Override
-	public GameItemList<Connection> getConnections() {
-		return map.getConnections();
-	}
+  @Override
+  public GameItemList<Connection> getConnections() {
+    return map.getConnections();
+  }
 
-	@Override
-	public Map getMap() {
-		return map;
-	}
+  @Override
+  public Map getMap() {
+    return map;
+  }
 
-	@Override
-	public Character getWinner() {
-		return winner;
-	}
+  @Override
+  public Character getWinner() {
+    return winner;
+  }
 
-	@Override
-	public void setWinner(Character winner) {
-		this.winner = winner;
-	}
+  @Override
+  public void setWinner(final Character winner) {
+    this.winner = winner;
+  }
 
-	@Override
-	public void addGameStateChangeObserver(GameStateChangeObserver observer) {
-		observers.add(observer);
+  @Override
+  public void addGameStateChangeObserver(final GameStateChangeObserver observer) {
+    observers.add(observer);
 
-	}
+  }
 
-	@Override
-	public void removeGameStateChangeObserver(GameStateChangeObserver observer) {
-		observers.remove(observer);
+  @Override
+  public void removeGameStateChangeObserver(final GameStateChangeObserver observer) {
+    observers.remove(observer);
 
-	}
+  }
 
-	@Override
-	public void notifyGameStateChangeObservers() {
-		for (GameStateChangeObserver observer : observers) {
-			observer.gameStateChangeUpdate();
-		}
-	}
+  @Override
+  public void notifyGameStateChangeObservers() {
+    for (final GameStateChangeObserver observer : observers) {
+      observer.gameStateChangeUpdate();
+    }
+  }
 }
