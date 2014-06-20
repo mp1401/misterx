@@ -33,7 +33,15 @@
 	<build>
 		<plugins>
 
-      <!-- SUREFILRE (TESTS) -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<compilerVersion>1.7</compilerVersion>
+				</configuration>
+			</plugin>
+
+			<!-- SUREFILRE (TESTS) -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.16</version>
