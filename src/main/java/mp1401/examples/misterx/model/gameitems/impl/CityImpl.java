@@ -54,4 +54,8 @@ public class CityImpl extends AbstractGameItemImpl implements City {
   public String toString() {
     return getName();
   }
+
+  private void someUnusedMethod() {
+    final int x = 5;
+  }
 }
