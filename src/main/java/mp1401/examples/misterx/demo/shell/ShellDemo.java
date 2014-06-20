@@ -12,21 +12,21 @@ import mp1401.examples.misterx.model.gameitems.enums.DetectiveType;
 
 public class ShellDemo {
 	
-	private GameCycleSimplifier gameCycleSimplifier;
+	private GameCycleSimplifier gameCycleSimplifier
 	
-	public static void main(String[] args) {
-		ShellDemo shellDemo = new ShellDemo();
+	public static void main(final String[] args) {
+		final ShellDemo shellDemo = new ShellDemo();
 		shellDemo.createAndStartGame();
 		shellDemo.play();
 	}
 	
 	public void createAndStartGame() {
-		GameItemFactory factory = GameItemFactoryImpl.getInstance();
-		MisterX misterX = factory.createMisterX();
-		Detective blueDetective = factory.createDetective(DetectiveType.BLUE);
-		Detective greenDetective = factory.createDetective(DetectiveType.GREEN);
+		final GameItemFactory factory = GameItemFactoryImpl.getInstance();
+		final MisterX misterX = factory.createMisterX();
+		final Detective blueDetective = factory.createDetective(DetectiveType.BLUE);
+		final Detective greenDetective = factory.createDetective(DetectiveType.GREEN);
 		
-		Game game = GameImpl.getInstance();
+		final Game game = GameImpl.getInstance();
 		
 		gameCycleSimplifier = new GameCycleSimplifier(game, misterX, blueDetective, greenDetective);
 		gameCycleSimplifier.createAndStartGame(new DemoMapDataParser());
@@ -49,15 +49,15 @@ public class ShellDemo {
 		
 	}
 	
-	private void printAction(String action) {
+	private void printAction(final String action) {
 		System.out.println("=====" + action + "=====\n");
 	}
 	
 	private void printGameInfo() {
-		Game game = GameImpl.getInstance();
+		final Game game = GameImpl.getInstance();
 		System.out.println("GameState: " + game.getCurrentGameState());
 		System.out.println("MisterX: " + game.getMisterX().getCurrentPosition());
-		for (Detective detective : game.getDetectives()) {
+		for (final Detective detective : game.getDetectives()) {
 			System.out.println(detective + ": " + detective.getCurrentPosition());
 		}
 		System.out.println("Winner: " + game.getWinner() + "\n\n");
